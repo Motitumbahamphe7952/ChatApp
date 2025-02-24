@@ -1,6 +1,11 @@
 @import "tailwindcss";
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+
+@theme {
+    
+    --color-primary: #D4E7C5;
+    --color-secondary: #276678;
+   
+  }
 
 body {
     margin: 0;
@@ -15,7 +20,3 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-:root {
-    --color-primary: #198293;
-    --color-secondary: #178d5e;
-}
