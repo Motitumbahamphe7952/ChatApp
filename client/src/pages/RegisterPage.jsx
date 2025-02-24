@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -14,8 +15,8 @@ const RegisterPage = () => {
   const handleUploadPhoto = (e) => {
     const file = e.target.files[0];
     setUploadPhoto(file);
-    console.log("Upload Photo:", uploadPhoto);
   };
+  console.log("Upload Photo:", uploadPhoto);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
@@ -27,8 +28,15 @@ const RegisterPage = () => {
     });
   };
 
-  const handleClearUploadPhoto = () => {
+  const handleClearUploadPhoto = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setUploadPhoto(null);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   return (
@@ -36,7 +44,7 @@ const RegisterPage = () => {
       <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 ">
         <h3>Welcome to Chat App</h3>
 
-        <form className="grid gap-4 mt-4">
+        <form className="grid gap-4 mt-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
             <label htmlFor="name">Name :</label>
             <input
@@ -44,7 +52,7 @@ const RegisterPage = () => {
               id="name"
               name="name"
               placeholder=" Enter your name"
-              className="bg-slate-100 px-2 py-1 focus:outline-primary"
+              className="bg-slate-100 px-2 py-1 focus:outline-primary rounded"
               value={data.name}
               onChange={handleOnChange}
               required
@@ -58,7 +66,7 @@ const RegisterPage = () => {
               id="email"
               name="email"
               placeholder=" Enter your email"
-              className="bg-slate-100 px-2 py-1 focus:outline-primary"
+              className="bg-slate-100 px-2 py-1 focus:outline-primary rounded"
               value={data.email}
               onChange={handleOnChange}
               required
@@ -72,7 +80,7 @@ const RegisterPage = () => {
               id="password"
               name="password"
               placeholder=" Enter your password"
-              className="bg-slate-100 px-2 py-1 focus:outline-primary"
+              className="bg-slate-100 px-2 py-1 focus:outline-primary rounded"
               value={data.password}
               onChange={handleOnChange}
               required
@@ -107,7 +115,18 @@ const RegisterPage = () => {
               onChange={handleUploadPhoto}
             />
           </div>
+
+          <button
+            className="bg-primary text-lg px-4 py-1 hover:bg-secondary rounded mt-2 font-bold text-white leading-relaxed tracking-wide"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
+
+        <p>
+          Already have an Account ? <Link to={"/email"} className="hover:text-secondary hover:underline">Login</Link>
+        </p>
       </div>
     </div>
   );
