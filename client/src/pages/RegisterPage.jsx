@@ -11,7 +11,7 @@ const RegisterPage = () => {
     profilepic: "",
   });
 
-  const [uploadPhoto, setUploadPhoto] = useState("");
+  const [uploadPhoto, setUploadPhoto] = useState(null);
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
 
