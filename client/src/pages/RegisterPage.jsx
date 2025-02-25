@@ -3,6 +3,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { uploadFile } from "../helpers/uploadFile.js";
 import { backendURL } from "../constant.js";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -18,15 +20,13 @@ const RegisterPage = () => {
     const uploadPhoto = await uploadFile(file);
     setUploadPhoto(file);
 
-    setData((preve)=>{
+    setData((preve) => {
       return {
         ...preve,
-        profilepic:uploadPhoto?.url
-      }
-    })
+        profilepic: uploadPhoto?.url,
+      };
+    });
   };
-
-
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -45,10 +45,19 @@ const RegisterPage = () => {
     setUploadPhoto(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const URL = `${backendURL}/api/register`
+    const URL = `${backendURL}/api/register`;
+
+    try {
+      const response = await axios.post(URL, data);
+      console.log("response:", data);
+      toast.success(response?.data?.message);
+    } catch (error) {
+      toast.error(error?.reponse?.data?.message);  
+      console.log("error:", error);
+    }
     console.log("data:", data);
   };
 
