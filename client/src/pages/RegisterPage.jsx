@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { uploadFile } from "../helpers/uploadFile";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -12,8 +12,11 @@ const RegisterPage = () => {
   });
 
   const [uploadPhoto, setUploadPhoto] = useState("");
-  const handleUploadPhoto = (e) => {
+  const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
+
+    const uploadPhoto =  await uploadFile(file);
+    console.log("Upload Photo:", uploadPhoto);
     setUploadPhoto(file);
   };
   console.log("Upload Photo:", uploadPhoto);
@@ -37,11 +40,12 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('data:', data);
   };
-
+  console.log('data:', data);
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 ">
+      <div className="bg-white w-full max-w-md  mx:2 md:mx-auto rounded overflow-hidden p-4 ">
         <h3>Welcome to Chat App</h3>
 
         <form className="grid gap-4 mt-4" onSubmit={handleSubmit}>
@@ -124,7 +128,7 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p>
+        <p className="mt-4 my-3 text-center">
           Already have an Account ? <Link to={"/email"} className="hover:text-secondary hover:underline">Login</Link>
         </p>
       </div>
