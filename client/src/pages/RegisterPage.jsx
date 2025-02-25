@@ -14,12 +14,19 @@ const RegisterPage = () => {
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-
-    const uploadPhoto =  await uploadFile(file);
-    console.log("Upload Photo:", uploadPhoto);
+    const uploadPhoto = await uploadFile(file);
     setUploadPhoto(file);
+
+    setData((preve)=>{
+      return {
+        ...preve,
+        profilepic:uploadPhoto?.url
+      }
+    })
   };
-  console.log("Upload Photo:", uploadPhoto);
+
+
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
@@ -40,9 +47,9 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('data:', data);
+    console.log("data:", data);
   };
-  console.log('data:', data);
+  console.log("data:", data);
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-md  mx:2 md:mx-auto rounded overflow-hidden p-4 ">
@@ -129,7 +136,10 @@ const RegisterPage = () => {
         </form>
 
         <p className="mt-4 my-3 text-center">
-          Already have an Account ? <Link to={"/email"} className="hover:text-secondary hover:underline">Login</Link>
+          Already have an Account ?{" "}
+          <Link to={"/email"} className="hover:text-secondary hover:underline">
+            Login
+          </Link>
         </p>
       </div>
     </div>
