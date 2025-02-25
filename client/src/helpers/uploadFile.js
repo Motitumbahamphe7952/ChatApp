@@ -1,8 +1,7 @@
 import axios from "axios";
+import { cloudName } from "../constant";
 
-const url = `https://api.cloudinary.com/v1_1/${
-  import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-}/auto/upload`;
+const url = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
 
 console.log("url:", url);
 

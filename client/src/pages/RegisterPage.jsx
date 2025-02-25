@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { uploadFile } from "../helpers/uploadFile";
+import { uploadFile } from "../helpers/uploadFile.js";
+import { backendURL } from "../constant.js";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -47,12 +48,13 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    const URL = `${backendURL}/api/register`
     console.log("data:", data);
   };
-  console.log("data:", data);
+
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-md  mx:2 md:mx-auto rounded overflow-hidden p-4 ">
+      <div className="bg-white w-full max-w-md mx-auto rounded overflow-hidden p-4 ">
         <h3>Welcome to Chat App</h3>
 
         <form className="grid gap-4 mt-4" onSubmit={handleSubmit}>
