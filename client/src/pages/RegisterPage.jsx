@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { uploadFile } from "../helpers/uploadFile.js";
 import { backendURL } from "../constant.js";
 import axios from "axios";
@@ -13,8 +13,8 @@ const RegisterPage = () => {
     password: "",
     profilepic: "",
   });
-
   const [uploadPhoto, setUploadPhoto] = useState(null);
+  const navigate = useNavigate();
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
     const uploadPhoto = await uploadFile(file);
@@ -53,11 +53,26 @@ const RegisterPage = () => {
     try {
       const response = await axios.post(URL, data);
       console.log("response:", data);
+
       toast.success(response?.data?.message);
+
+      if(response.data.success){
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          profilepic: "",
+        });
+
+        navigate('/email');
+      }
+
     } catch (error) {
       toast.error(error?.reponse?.data?.message);  
       console.log("error:", error);
+
     }
+
     console.log("data:", data);
   };
 
