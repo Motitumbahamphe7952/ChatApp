@@ -6,6 +6,7 @@ import App from "../App.jsx";
 import Home from "../pages/Home.jsx";
 import RegisterPage from "../pages/RegisterPage.jsx";
 import Authlayouts from "../layout/layout.jsx";
+import LoginPage from "../pages/loginPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "password",
         element: <Authlayouts><CheckPasswordPage /></Authlayouts>
+      },
+      {
+        path: "login",
+        element: <Authlayouts><LoginPage /></Authlayouts>
       },
       {
         path: "",
