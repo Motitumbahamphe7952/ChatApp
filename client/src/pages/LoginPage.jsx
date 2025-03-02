@@ -28,7 +28,16 @@ const LoginPage = () => {
     const URL = `${backendURL}/api/login`;
 
     try {
-      const response = await axios.post(URL, data);
+      const response = await axios({
+        method: "post",
+        url: URL,
+        data: {
+          userId: data._id,
+          email: data.email,
+          password: data.password,
+        },
+        withCredentials: true,
+      });
 
       toast.success(response?.data?.message);
 
@@ -38,7 +47,7 @@ const LoginPage = () => {
           password: "",
         });
 
-        navigate("/email");
+        navigate("/");
       }
     } catch (error) {
       toast.error(error?.reponse?.data?.message);
