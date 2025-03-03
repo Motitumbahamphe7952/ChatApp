@@ -11,9 +11,26 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state._id = action.payload._id;
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.profilepic = action.payload.profilepic;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    logout: (state, action) => {
+      state._id = "";
+      state.name = "";
+      state.email = "";
+      state.profilepic = "";
+      state.token = "";
+    },
+  },
 });
 
-export const {} = counterSlice.actions;
+export const { setUser, setToken, logout } = userSlice.actions;
 
-export default counterSlice.reducer;
+export default userSlice.reducer;
