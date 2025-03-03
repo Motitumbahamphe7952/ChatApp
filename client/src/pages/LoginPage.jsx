@@ -4,12 +4,15 @@ import { backendURL } from "../constant.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PiUserCircleThin } from "react-icons/pi";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/userSlice.js";
 const LoginPage = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +45,9 @@ const LoginPage = () => {
       toast.success(response?.data?.message);
 
       if (response.data.success) {
+        dispatch(setToken(response?.data?.token));
+        localStorage.setItem("token", response?.data?.token);
+
         setData({
           email: "",
           password: "",

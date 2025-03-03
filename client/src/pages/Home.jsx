@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { backendURL } from "../constant.js";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/userSlice.js";
 
 const Home = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log("redux user", user);
   const fetchUserDetails = async () => {
     try {
       const URL = `${backendURL}/api/userdetails`;
@@ -12,6 +19,11 @@ const Home = () => {
         url: URL,
         withCredentials: true,
       });
+
+      if (response.data.logout) {
+        dispatch(logout());
+        navigate("/login");
+      }
       console.log("current user details", response?.data?.data);
     } catch (error) {
       console.log("error:", error);
@@ -19,7 +31,7 @@ const Home = () => {
   };
   useEffect(() => {
     fetchUserDetails();
-  },[])
+  }, []);
   return (
     <div>
       Home
