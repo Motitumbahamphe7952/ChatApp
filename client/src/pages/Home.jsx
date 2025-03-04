@@ -4,6 +4,7 @@ import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setUser } from "../redux/userSlice.js";
+import Sidebar from "../components/sidebar.jsx";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -37,7 +38,7 @@ const Home = () => {
   return (
     <div className="grid lg:grid-cols-[320px_auto] h-screen max-h-screen">
       <section className="bg-white">
-        sidebar
+        <Sidebar />
       </section>
 
       <section>
