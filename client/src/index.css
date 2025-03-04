@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
-@theme {
-    
+@theme {    
     --color-primary: #b9e895;
     --color-secondary: #a2ed68;
     --color-dirtygreen: #7d9985;
-    --color-softred: #FF7777;
-   
-   
+    --color-softred: #FF7777; 
   }
 
 body {

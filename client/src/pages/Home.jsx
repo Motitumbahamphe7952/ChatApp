@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/userSlice.js";
+import { logout, setUser } from "../redux/userSlice.js";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -20,6 +20,8 @@ const Home = () => {
         withCredentials: true,
       });
 
+      dispatch(setUser(response?.data?.data));
+
       if (response.data.logout) {
         dispatch(logout());
         navigate("/login");
@@ -33,8 +35,11 @@ const Home = () => {
     fetchUserDetails();
   }, []);
   return (
-    <div>
-      Home
+    <div className="grid lg:grid-cols-[320px_auto] h-screen max-h-screen">
+      <section className="bg-white">
+        sidebar
+      </section>
+
       <section>
         <Outlet />
       </section>
