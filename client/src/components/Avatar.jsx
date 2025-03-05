@@ -18,6 +18,22 @@ const Avatar = ({ width = 50, height = 50 }) => {
       avatarName = splitName[0][0];
     }
   }
+
+
+  const bgColors = [
+    "bg-slate-100",
+    "bg-teal-100",
+    "bg-red-100",
+    "bg-green-100",
+    "bg-yellow-100",
+    "bg-gray-100",
+    "bg-cyan-100",
+    "bg-sky-100",
+    "bg-blue-100",
+  ];
+
+  const randomNumber = Math.floor(Math.random() * 9)
+  const selectedBgColor = bgColors[randomNumber];
   return (
     <div className="text-slate-800 overflow-hidden rounded-full">
       {imageUrl ? (
@@ -31,7 +47,7 @@ const Avatar = ({ width = 50, height = 50 }) => {
       ) : name ? (
         <div
           style={{ width: width + "px", height: height + "px" }}
-          className="flex justify-center items-center overflow-hidden rounded-full"
+          className={`flex justify-center items-center overflow-hidden rounded-full text-lg text-slate-700 ${selectedBgColor}`}
         >
           {avatarName}
         </div>

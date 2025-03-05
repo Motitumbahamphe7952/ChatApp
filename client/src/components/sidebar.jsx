@@ -5,11 +5,11 @@ import { LuLogOut } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useSelector } from "react-redux";
-
+import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user);
-  const [editUserOpen, setEditUserOpen] = useState(false);
+  const [editUserOpen, setEditUserOpen] = useState(true);
 
   return (
     <div className="w-full h-full">
@@ -35,9 +35,15 @@ const Sidebar = () => {
         </div>
         <div className="">
           <div className="px-0.5">
-          <button className="flex justify-center items-center text-lg font-semibold overflow-hidden  bg-slate-200 rounded-full cursor-pointer" title={user?.name} onClick={()=>{setEditUserOpen(true)}}>
-            <Avatar width={40} height={40} name={user?.name} />
-          </button>
+            <button
+              className="flex justify-center items-center text-lg font-semibold overflow-hidden bg-slate-200 rounded-full cursor-pointer"
+              title={user?.name}
+              onClick={() => {
+                setEditUserOpen(true);
+              }}
+            >
+              <Avatar width={40} height={40} name={user?.name} />
+            </button>
           </div>
           <button
             className="w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded"
@@ -47,6 +53,15 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
+      {/* edit user details */}
+      {editUserOpen && (
+        <EditUserDetails
+          onClose={() => 
+           { setEditUserOpen(false);}
+          }
+          data={user}
+        />
+      )}
     </div>
   );
 };
