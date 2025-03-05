@@ -31,7 +31,7 @@ const Avatar = ({ width = 50, height = 50 }) => {
       ) : name ? (
         <div
           style={{ width: width + "px", height: height + "px" }}
-          className="overflow-hidden rounded-full"
+          className="flex justify-center items-center overflow-hidden rounded-full"
         >
           {avatarName}
         </div>
