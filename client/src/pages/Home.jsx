@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ const Home = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   console.log("redux user", user);
   const fetchUserDetails = async () => {
