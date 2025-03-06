@@ -42,7 +42,7 @@ const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg" }) => {
           alt={name}
           width={width}
           height={height}
-          className="overflow-hidden rounded-full"
+          className="overflow-hidden rounded-full object-cover"
         />
       ) : name ? (
         <div

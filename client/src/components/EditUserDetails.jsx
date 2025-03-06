@@ -27,7 +27,7 @@ const EditUserDetails = ({ onClose, data }) => {
     setformData((preve) => {
       return {
         ...preve,
-        profilepic: uploadPhoto,
+        profilepic: uploadPhoto.secure_url,
       };
     });
    
