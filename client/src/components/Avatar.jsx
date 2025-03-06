@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { PiUserCircleThin } from "react-icons/pi";
 
-const Avatar = ({ width = 50, height = 50 }) => {
+const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg" }) => {
   const {
     _id: userId,
     name,
@@ -47,7 +47,7 @@ const Avatar = ({ width = 50, height = 50 }) => {
       ) : name ? (
         <div
           style={{ width: width + "px", height: height + "px" }}
-          className={`flex justify-center items-center overflow-hidden rounded-full text-lg text-slate-700 ${selectedBgColor}`}
+          className={`flex justify-center items-center overflow-hidden rounded-full ${textSize} text-slate-700 ${selectedBgColor}`}
         >
           {avatarName}
         </div>
