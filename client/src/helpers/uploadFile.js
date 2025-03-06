@@ -10,7 +10,15 @@ export const uploadFile = async (file) => {
   formData.append("file", file);
   formData.append("upload_preset", "Chat_App_File");
 
-  const response = await axios.post(url,formData);
-//   const responseData = await response.json();
-  return response.data;
+//   const response = await axios.post(url,formData);
+// //   const responseData = await response.json();
+//   return response.data;
+try {
+  const response = await axios.post(url, formData);
+  console.log("Cloudinary Response:", response.data); // Debugging
+  return response.data.secure_url; // ✅ Fixed: Now returning correct URL
+} catch (error) {
+  console.error("File Upload Error:", error);
+  return null;
+}
 };

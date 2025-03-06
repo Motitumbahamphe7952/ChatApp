@@ -19,11 +19,10 @@ const RegisterPage = () => {
     const file = e.target.files[0];
     const uploadPhoto = await uploadFile(file);
     setUploadPhoto(file);
-
     setData((preve) => {
       return {
         ...preve,
-        profilepic: uploadPhoto?.url,
+        profilepic: uploadPhoto,
       };
     });
   };
