@@ -15,17 +15,7 @@ const RegisterPage = () => {
   });
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const navigate = useNavigate();
-  // const handleUploadPhoto = async (e) => {
-  //   const file = e.target.files[0];
-  //   const uploadPhoto = await uploadFile(file);
-  //   setUploadPhoto(file);
-  //   setData((preve) => {
-  //     return {
-  //       ...preve,
-  //       profilepic: uploadPhoto.secure_url,
-  //     };
-  //   });
-  // };
+
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
   

@@ -11,7 +11,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   console.log("redux user", user);
   const fetchUserDetails = async () => {
     try {
