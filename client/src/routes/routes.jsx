@@ -6,7 +6,7 @@ import App from "../App.jsx";
 import Home from "../pages/Home.jsx";
 import RegisterPage from "../pages/RegisterPage.jsx";
 import Authlayouts from "../layout/layout.jsx";
-import LoginPage from "../pages/loginPage.jsx";
+import LoginPage from "../pages/LoginPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
