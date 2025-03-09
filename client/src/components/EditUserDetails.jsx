@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Avatar from "./Avatar";
 import { uploadFile } from "../helpers/uploadFile.js";
 import Divider from "./Divider.jsx";
-import { useDispatch } from "react-redux";
 
 const EditUserDetails = ({ onClose, data }) => {
   const [formData, setformData] = useState({
