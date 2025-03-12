@@ -42,6 +42,7 @@ const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg" }) => {
           alt={name}
           width={width}
           height={height}
+          key={imageUrl}
           className="overflow-hidden rounded-full aspect-square object-cover"
         />
       ) : name ? (

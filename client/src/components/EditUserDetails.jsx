@@ -47,13 +47,35 @@ const EditUserDetails = ({ onClose, data }) => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-    const uploadPhoto = await uploadFile(file);
-    setformData((preve) => {
-      return {
-        ...preve,
-        profilepic: uploadPhoto.secure_url,
-      };
-    });
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
+    // const uploadPhoto = await uploadFile(file);
+    // setformData((preve) => {
+    //   return {
+    //     ...preve,
+    //     profilepic: uploadPhoto?.secure_url || preve.profilepic,
+    //   };
+    // });
+    try {
+      const uploadPhoto = await uploadFile(file);
+      console.log("Upload Response:", uploadPhoto); // Debugging line
+  
+      // Directly use the returned string if it's not an object
+      const uploadedUrl = typeof uploadPhoto === "string" ? uploadPhoto : uploadPhoto?.secure_url;
+  
+      if (uploadedUrl) {
+        setformData((prev) => ({
+          ...prev,
+          profilepic: uploadedUrl,
+        }));
+      } else {
+        console.error("Upload failed: secure_url not found");
+      }
+    } catch (error) {
+      console.error("File upload error:", error);
+    }
    
   };
 
@@ -64,7 +86,7 @@ const EditUserDetails = ({ onClose, data }) => {
     uploadPhotoRef.current.click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     e.stopPropagation();
     // console.log("Updated Data:", formData);
@@ -92,7 +114,7 @@ const EditUserDetails = ({ onClose, data }) => {
             </div>
             <label htmlFor="profilepic">
               <button
-                className="bg-primary text-white mt-3 px-2 py-1 rounded hover:bg-secondary"
+                className=" font-semibold bg-primary text-white mt-3 px-2 py-1 rounded hover:bg-secondary"
                 onClick={handleOpenUploadPhoto}
               >
                 Change Photo
