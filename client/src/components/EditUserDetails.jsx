@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Avatar from "./Avatar";
 import { uploadFile } from "../helpers/uploadFile.js";
 import Divider from "./Divider.jsx";
@@ -8,6 +8,31 @@ const EditUserDetails = ({ onClose, data }) => {
     name: data?.name || "",
     profilepic: data?.profilepic || "",
   });
+
+
+  useEffect(() => {
+    if (data) {
+      setformData({
+        name: data.name || "",
+        profilepic: data.profilepic || "",
+      });
+    }
+  }, [data]);
+  // The useEffect hook is used here to ensure that formData is updated 
+// whenever the data prop changes. This is important because data might 
+// be coming from an API or a parent component asynchronously, and it may 
+// not be available when the component first renders. 
+
+// Without useEffect, formData would only be set once during initialization 
+// and would not update if new data is received later. By using useEffect 
+// with [data] as the dependency array, we make sure that whenever data 
+// changes, formData is updated accordingly, keeping the UI in sync with 
+// the latest user details.
+
+
+  console.log("data:", data);
+  console.log("Updated Data:", formData);
+
   const uploadPhotoRef = useRef();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +67,7 @@ const EditUserDetails = ({ onClose, data }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Updated Data:", formData);
+    // console.log("Updated Data:", formData);
     onClose();
   };
 
