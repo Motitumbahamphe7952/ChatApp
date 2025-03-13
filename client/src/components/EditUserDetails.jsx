@@ -50,37 +50,29 @@ const EditUserDetails = ({ onClose, data }) => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+        const uploadPhoto = await uploadFile(file);
+        console.log("Cloudinary Upload Response:", uploadPhoto); // Debugging Log
+        if (uploadPhoto && uploadPhoto.secure_url) {
+            setformData((preve) => ({
+                ...preve,
+                profilepic: uploadPhoto.secure_url,
+            }));
+        } else {
+            console.error("Upload failed: secure_url is missing");
+        }
+    } catch (error) {
+        console.error("Error uploading photo:", error);
+    }
     // const uploadPhoto = await uploadFile(file);
     // setformData((preve) => {
     //   return {
     //     ...preve,
-    //     profilepic: uploadPhoto?.secure_url || preve.profilepic,
+    //     profilepic: uploadPhoto?.secure_url,
     //   };
-    // });
-
-    if (!file) {
-      console.log("No file selected");
-      return;
-    }
-    try {
-      const uploadPhoto = await uploadFile(file);
-      console.log("Upload Response:", uploadPhoto); // Debugging line
-
-      // Directly use the returned string if it's not an object
-      const uploadedUrl =
-        typeof uploadPhoto === "string" ? uploadPhoto : uploadPhoto?.secure_url;
-
-      if (uploadedUrl) {
-        setformData((prev) => ({
-          ...prev,
-          profilepic: `${uploadedUrl}?t=${new Date().getTime()}`,
-        }));
-      } else {
-        console.error("Upload failed: secure_url not found");
-      }
-    } catch (error) {
-      console.error("File upload error:", error);
-    }
+    // });  
   };
 
   const handleOpenUploadPhoto = (e) => {
@@ -108,7 +100,7 @@ const EditUserDetails = ({ onClose, data }) => {
           <div className="flex flex-col gap-1">
             <div className="flex justify-center item-center">
               <Avatar
-                key={formData.profilepic}
+                key={formData?.profilepic}
                 width={120}
                 height={120}
                 textSize="text-4xl"

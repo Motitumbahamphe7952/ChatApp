@@ -18,18 +18,18 @@ const RegisterPage = () => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-  
+
     if (!file) {
       toast.error("No file selected.");
       return;
     }
-  
+
     try {
       console.log("Uploading file:", file); // Debugging
-  
+
       const uploadedPhotoUrl = await uploadFile(file); // ✅ Fix: This now gets the actual URL
       console.log("Uploaded photo URL:", uploadedPhotoUrl); // Debugging
-  
+
       if (uploadedPhotoUrl) {
         setUploadPhoto(file);
         setData((prev) => ({
@@ -44,7 +44,7 @@ const RegisterPage = () => {
       toast.error("Error uploading photo.");
     }
   };
-  
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
@@ -81,7 +81,7 @@ const RegisterPage = () => {
           profilepic: "",
         });
 
-        navigate("/email");
+        navigate("/login");
       }
     } catch (error) {
       toast.error(error?.reponse?.data?.message);
@@ -142,7 +142,6 @@ const RegisterPage = () => {
           <div className="flex flex-col gap-1">
             <label htmlFor="profilepic">
               Photo :
-
               <div className="flex justify-center p-4">
                 {data.profilepic ? (
                   <img
@@ -156,7 +155,6 @@ const RegisterPage = () => {
                   </div>
                 )}
               </div>
-
               <div className="h-14 bg-slate-200 flex justify-center items-center border-3 border-transparent rounded hover:border-primary cursor-pointer">
                 <p className="text-sm max-w-[300px] text-ellipsis line-clamp-1">
                   {uploadPhoto?.name
