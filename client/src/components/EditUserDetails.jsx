@@ -9,6 +9,7 @@ const EditUserDetails = ({ onClose, data }) => {
     profilepic: data?.profilepic || "",
   });
 
+  const uploadPhotoRef = useRef();
 
   useEffect(() => {
     if (data) {
@@ -18,22 +19,24 @@ const EditUserDetails = ({ onClose, data }) => {
       });
     }
   }, [data]);
-  // The useEffect hook is used here to ensure that formData is updated 
-// whenever the data prop changes. This is important because data might 
-// be coming from an API or a parent component asynchronously, and it may 
-// not be available when the component first renders. 
+  // Logs formData when updated to track changes
+  useEffect(() => {
+    console.log("Updated Data:", formData);
+  }, [formData]);
+  // The useEffect hook is used here to ensure that formData is updated
+  // whenever the data prop changes. This is important because data might
+  // be coming from an API or a parent component asynchronously, and it may
+  // not be available when the component first renders.
 
-// Without useEffect, formData would only be set once during initialization 
-// and would not update if new data is received later. By using useEffect 
-// with [data] as the dependency array, we make sure that whenever data 
-// changes, formData is updated accordingly, keeping the UI in sync with 
-// the latest user details.
+  // Without useEffect, formData would only be set once during initialization
+  // and would not update if new data is received later. By using useEffect
+  // with [data] as the dependency array, we make sure that whenever data
+  // changes, formData is updated accordingly, keeping the UI in sync with
+  // the latest user details.
 
+  console.log("userdata:", data);
+  console.log(" Data:", formData);
 
-  console.log("data:", data);
-  console.log("Updated Data:", formData);
-
-  const uploadPhotoRef = useRef();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,10 +50,6 @@ const EditUserDetails = ({ onClose, data }) => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-    if (!file) {
-      console.log("No file selected");
-      return;
-    }
     // const uploadPhoto = await uploadFile(file);
     // setformData((preve) => {
     //   return {
@@ -58,17 +57,23 @@ const EditUserDetails = ({ onClose, data }) => {
     //     profilepic: uploadPhoto?.secure_url || preve.profilepic,
     //   };
     // });
+
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
     try {
       const uploadPhoto = await uploadFile(file);
       console.log("Upload Response:", uploadPhoto); // Debugging line
-  
+
       // Directly use the returned string if it's not an object
-      const uploadedUrl = typeof uploadPhoto === "string" ? uploadPhoto : uploadPhoto?.secure_url;
-  
+      const uploadedUrl =
+        typeof uploadPhoto === "string" ? uploadPhoto : uploadPhoto?.secure_url;
+
       if (uploadedUrl) {
         setformData((prev) => ({
           ...prev,
-          profilepic: uploadedUrl,
+          profilepic: `${uploadedUrl}?t=${new Date().getTime()}`,
         }));
       } else {
         console.error("Upload failed: secure_url not found");
@@ -76,7 +81,6 @@ const EditUserDetails = ({ onClose, data }) => {
     } catch (error) {
       console.error("File upload error:", error);
     }
-   
   };
 
   const handleOpenUploadPhoto = (e) => {
@@ -86,10 +90,10 @@ const EditUserDetails = ({ onClose, data }) => {
     uploadPhotoRef.current.click();
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // console.log("Updated Data:", formData);
+    console.log("Submitting updated data:", formData);
     onClose();
   };
 
@@ -109,7 +113,7 @@ const EditUserDetails = ({ onClose, data }) => {
                 height={120}
                 textSize="text-4xl"
                 imageUrl={formData?.profilepic}
-                name={data?.name}
+                name={formData?.name}
               />
             </div>
             <label htmlFor="profilepic">

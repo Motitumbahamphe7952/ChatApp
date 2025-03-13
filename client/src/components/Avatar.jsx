@@ -4,7 +4,7 @@ import { PiUserCircleThin } from "react-icons/pi";
 
 const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg" }) => {
   const {
-    _id: userId,
+    _id: _id,
     name,
     profilepic: imageUrl,
   } = useSelector((state) => state.user);
@@ -42,7 +42,6 @@ const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg" }) => {
           alt={name}
           width={width}
           height={height}
-          key={imageUrl}
           className="overflow-hidden rounded-full aspect-square object-cover"
         />
       ) : name ? (
