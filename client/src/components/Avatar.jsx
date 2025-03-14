@@ -1,13 +1,15 @@
+
 import React from "react";
 import { useSelector } from "react-redux";
 import { PiUserCircleThin } from "react-icons/pi";
 
-const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg"}) => {
-  const {
-    _id: _id,
-    name,
-    profilepic: imageUrl,
-  } = useSelector((state) => state.user);
+const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg", name: propName, profilepic: propProfilePic}) => {
+const user = useSelector((state) => state.user);
+const {name: reduxName , profilepic: reduxProfilePic} = user;
+
+
+const name = propName || reduxName;
+const imageUrl = propProfilePic || reduxProfilePic;
 
   let avatarName = "";
   if (name) {

@@ -34,8 +34,8 @@ const EditUserDetails = ({ onClose, data }) => {
   // changes, formData is updated accordingly, keeping the UI in sync with
   // the latest user details.
 
-  console.log("userdata:", data);
-  console.log(" Data:", formData);
+//   console.log("userdata:", data);
+//   console.log(" Data:", formData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -104,7 +104,7 @@ const EditUserDetails = ({ onClose, data }) => {
                 width={120}
                 height={120}
                 textSize="text-4xl"
-                imageUrl={formData?.profilepic}
+                profilepic={formData?.profilepic}
                 name={formData?.name}
               />
             </div>
@@ -158,3 +158,4 @@ const EditUserDetails = ({ onClose, data }) => {
 };
 
 export default EditUserDetails;
+

@@ -42,7 +42,7 @@ const Sidebar = () => {
                 setEditUserOpen(true);
               }}
             >
-              <Avatar width={40} height={40} name={user?.name} />
+              <Avatar width={40} height={40} name={user?.name} profilepic={user?.profilepic} />
             </button>
           </div>
           <button
