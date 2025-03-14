@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Avatar from "./Avatar";
 import { uploadFile } from "../helpers/uploadFile.js";
 import Divider from "./Divider.jsx";
-
+import { toast } from "react-toastify";
+import { backendURL } from "../constant.js";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice.js";
 const EditUserDetails = ({ onClose, data }) => {
   const [formData, setformData] = useState({
     name: data?.name || "",
@@ -10,6 +14,7 @@ const EditUserDetails = ({ onClose, data }) => {
   });
 
   const uploadPhotoRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (data) {
@@ -83,10 +88,45 @@ const EditUserDetails = ({ onClose, data }) => {
   };
 
   const handleSubmit = async (e) => {
+    // e.preventDefault();
+    // e.stopPropagation();
+    // console.log("Submitting updated data:", formData);
+    // try{
+    //     const url = `${backendURL}/api/updateuser`;
+    //     const response = await axios.patch(url, formData);
+    //     console.log("API Response:", response);
+    //     toast.success(response.data.message);
+    // }catch(error){
+    //   toast.error(error?.response?.data?.message);
+    // }
+    // // onClose();
+
     e.preventDefault();
     e.stopPropagation();
     console.log("Submitting updated data:", formData);
-    onClose();
+  
+    try {
+      const url = `${backendURL}/api/updateuser`;
+      const response = await axios({
+        method: "PATCH",
+        data: formData,
+        url: url,
+        withCredentials: true,
+      });
+      
+      console.log("API Response:", response); // Debugging
+  
+      if (response.data.success) {
+        toast.success(response.data.message || "Profile updated successfully!");
+        dispatch(setUser(response.data.data));
+      } else {
+        toast.warn("Update might not have been successful.");
+      }
+    } catch (error) {
+      console.error("Error Response:", error.response);
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+    }
+    
   };
 
   return (
@@ -101,7 +141,7 @@ const EditUserDetails = ({ onClose, data }) => {
             <div className="flex justify-center item-center">
               <Avatar
                 key={formData?.profilepic}
-                width={120}
+                width={200}
                 height={120}
                 textSize="text-4xl"
                 profilepic={formData?.profilepic}
@@ -145,7 +185,7 @@ const EditUserDetails = ({ onClose, data }) => {
               Cancel
             </button>
             <button
-              type="submit"
+              onClick={handleSubmit}
               className="border-primary border bg-primary text-white px-4 py-1 rounded hover:bg-secondary"
             >
               Save
