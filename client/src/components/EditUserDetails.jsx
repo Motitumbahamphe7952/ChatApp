@@ -25,9 +25,9 @@ const EditUserDetails = ({ onClose, data }) => {
     }
   }, [data]);
   // Logs formData when updated to track changes
-  useEffect(() => {
-    console.log("Updated Data:", formData);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log("Updated Data:", formData);
+  // }, [formData]);
   // The useEffect hook is used here to ensure that formData is updated
   // whenever the data prop changes. This is important because data might
   // be coming from an API or a parent component asynchronously, and it may
@@ -99,13 +99,13 @@ const EditUserDetails = ({ onClose, data }) => {
       console.log("API Response:", response); // Debugging
   
       if (response.data.success) {
-        toast.success(response.data.message || "Profile updated successfully!");
-        dispatch(setUser(response.data.data));
+        toast.success(response?.data?.message || "Profile updated successfully!");
+        dispatch(setUser(response?.data?.data));
       } else {
         toast.warn("Update might not have been successful.");
       }
     } catch (error) {
-      console.error("Error Response:", error.response);
+      console.error("Error Response:", error?.response);
       toast.error(error?.response?.data?.message || "Something went wrong!");
     }
     onClose();

@@ -5,6 +5,8 @@
     --color-secondary: #a2ed68;
     --color-dirtygreen: #7d9985;
     --color-softred: #FF7777; 
+
+    --breakpoint-abc: 1024px;
   }
 
 body {

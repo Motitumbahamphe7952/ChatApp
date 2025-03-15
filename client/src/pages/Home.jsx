@@ -5,11 +5,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setUser } from "../redux/userSlice.js";
 import Sidebar from "../components/Sidebar.jsx";
+import logo from "../assets/logo.png";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   console.log("redux user", user);
   const fetchUserDetails = async () => {
@@ -25,7 +27,7 @@ const Home = () => {
 
       dispatch(setUser(response?.data?.data));
 
-      if (response.data.logout) {
+      if (response.data.data.logout) {
         dispatch(logout());
         navigate("/login");
       }
@@ -37,16 +39,32 @@ const Home = () => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
+
+  console.log("location:", location);
+  const basePath = location.pathname === "/";
   return (
     <div className="grid lg:grid-cols-[320px_auto] h-screen max-h-screen">
-      <section className="bg-white">
+      <section className={`bg-white ${!basePath && "hidden"} lg:block` }>
         <Sidebar />
       </section>
 
-      <section>
+      <section className={`${basePath && "hidden"}`}>
         <Outlet />
       </section>
+
+      <div className="lg:flex flex-col items-center justify-center hidden">
+        <div>
+          <img 
+          src={logo}
+          width="300"
+          alt="image preview"
+          />
+        </div>
+        <p className="text-2xl text-slate-500">Select user to send message</p>
+      </div>
     </div>
+
+    
   );
 };
 

@@ -9,10 +9,10 @@ import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user);
-  const [editUserOpen, setEditUserOpen] = useState(true);
+  const [editUserOpen, setEditUserOpen] = useState(false);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full grid grid-cols-[48px_auto]">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-l py-5 text-slate-600 flex flex-col justify-between">
         <div>
           <NavLink
@@ -52,6 +52,9 @@ const Sidebar = () => {
             <LuLogOut size={20} />
           </button>
         </div>
+      </div>
+      <div className="w-full bg-red-500">
+        <h2>Message</h2>
       </div>
       {/* edit user details */}
       {editUserOpen && (
