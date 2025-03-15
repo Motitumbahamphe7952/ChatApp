@@ -4,7 +4,7 @@ import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setUser } from "../redux/userSlice.js";
-import Sidebar from "../components/sidebar.jsx";
+import Sidebar from "../components/Sidebar.jsx";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -20,6 +20,8 @@ const Home = () => {
         url: URL,
         withCredentials: true,
       });
+
+      console.log(response);
 
       dispatch(setUser(response?.data?.data));
 

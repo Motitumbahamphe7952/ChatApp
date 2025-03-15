@@ -28,13 +28,13 @@ const RegisterPage = () => {
       console.log("Uploading file:", file); // Debugging
 
       const uploadedPhotoUrl = await uploadFile(file); // ✅ Fix: This now gets the actual URL
-      console.log("Uploaded photo URL:", uploadedPhotoUrl); // Debugging
+      console.log("Uploaded photo URL:", uploadedPhotoUrl?.secure_url); // Debugging
 
       if (uploadedPhotoUrl) {
         setUploadPhoto(file);
         setData((prev) => ({
           ...prev,
-          profilepic: uploadedPhotoUrl, // ✅ Fix: Now correctly assigning the URL
+          profilepic: uploadedPhotoUrl?.secure_url, // ✅ Fix: Now correctly assigning the URL
         }));
       } else {
         toast.error("Failed to upload image.");
@@ -145,7 +145,7 @@ const RegisterPage = () => {
               <div className="flex justify-center p-4">
                 {data.profilepic ? (
                   <img
-                    src={data.profilepic}
+                    src={data?.profilepic}
                     alt="Profile Preview"
                     className="rounded-full w-50 h-50 object-cover border border-gray-300"
                   />

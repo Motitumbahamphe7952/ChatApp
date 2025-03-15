@@ -34,7 +34,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="">
-          <div className="px-0.5">
+          <div className="px-1">
             <button
               className="flex justify-center items-center text-lg font-semibold overflow-hidden bg-slate-200 rounded-full cursor-pointer"
               title={user?.name}

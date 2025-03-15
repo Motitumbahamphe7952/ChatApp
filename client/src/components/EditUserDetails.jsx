@@ -71,13 +71,7 @@ const EditUserDetails = ({ onClose, data }) => {
     } catch (error) {
         console.error("Error uploading photo:", error);
     }
-    // const uploadPhoto = await uploadFile(file);
-    // setformData((preve) => {
-    //   return {
-    //     ...preve,
-    //     profilepic: uploadPhoto?.secure_url,
-    //   };
-    // });  
+ 
   };
 
   const handleOpenUploadPhoto = (e) => {
@@ -88,18 +82,6 @@ const EditUserDetails = ({ onClose, data }) => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // e.stopPropagation();
-    // console.log("Submitting updated data:", formData);
-    // try{
-    //     const url = `${backendURL}/api/updateuser`;
-    //     const response = await axios.patch(url, formData);
-    //     console.log("API Response:", response);
-    //     toast.success(response.data.message);
-    // }catch(error){
-    //   toast.error(error?.response?.data?.message);
-    // }
-    // // onClose();
 
     e.preventDefault();
     e.stopPropagation();
@@ -126,6 +108,7 @@ const EditUserDetails = ({ onClose, data }) => {
       console.error("Error Response:", error.response);
       toast.error(error?.response?.data?.message || "Something went wrong!");
     }
+    onClose();
     
   };
 
