@@ -53,8 +53,13 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-      <div className="w-full bg-red-500">
-        <h2>Message</h2>
+      <div className="w-full">
+        <h2 className="text-xl font-bold p-4 text-slate-800 h-14">Message</h2>
+        <div className="bg-slate-200 p-[0.5px]"></div>
+
+        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
+
+        </div>
       </div>
       {/* edit user details */}
       {editUserOpen && (
