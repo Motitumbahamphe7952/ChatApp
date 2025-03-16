@@ -5,12 +5,13 @@ import { LuLogOut } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useSelector } from "react-redux";
+import { GoArrowUpLeft } from "react-icons/go";
 import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
-
+  const [allUser, setAllUser] = useState([]);
   return (
     <div className="w-full h-full grid grid-cols-[48px_auto]">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-l py-5 text-slate-600 flex flex-col justify-between">
@@ -42,7 +43,12 @@ const Sidebar = () => {
                 setEditUserOpen(true);
               }}
             >
-              <Avatar width={40} height={40} name={user?.name} profilepic={user?.profilepic} />
+              <Avatar
+                width={40}
+                height={40}
+                name={user?.name}
+                profilepic={user?.profilepic}
+              />
             </button>
           </div>
           <button
@@ -58,15 +64,27 @@ const Sidebar = () => {
         <div className="bg-slate-200 p-[0.5px]"></div>
 
         <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
-
+          {allUser.length === 0 && (
+            <div>
+              <div>
+                <div className="flex justify-center items-center"/>
+                <GoArrowUpLeft 
+                  size={50}
+                />
+              </div>
+              <p className="text-2sm text-center text-slate-600 p-6">
+                Explore users to start a conversations with
+              </p>
+            </div>
+          )}
         </div>
       </div>
       {/* edit user details */}
       {editUserOpen && (
         <EditUserDetails
-          onClose={() => 
-           { setEditUserOpen(false);}
-          }
+          onClose={() => {
+            setEditUserOpen(false);
+          }}
           data={user}
         />
       )}
