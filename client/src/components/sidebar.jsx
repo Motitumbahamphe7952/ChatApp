@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useSelector } from "react-redux";
 import { GoArrowUpLeft } from "react-icons/go";
+import { RiArrowLeftUpFill } from "react-icons/ri";
+import { BsBoxArrowUpLeft } from "react-icons/bs";
 import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
@@ -66,13 +68,11 @@ const Sidebar = () => {
         <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
           {allUser.length === 0 && (
             <div>
-              <div>
-                <div className="flex justify-center items-center"/>
-                <GoArrowUpLeft 
-                  size={50}
-                />
+              <div className="flex justify-center items-center pt-10 pb-3">
+                <BsBoxArrowUpLeft size={30} 
+                className="text-slate-800"/>
               </div>
-              <p className="text-2sm text-center text-slate-600 p-6">
+              <p className="text-lg text-center text-slate-600">
                 Explore users to start a conversations with
               </p>
             </div>

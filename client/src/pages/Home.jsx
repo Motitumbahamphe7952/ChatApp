@@ -53,14 +53,14 @@ const Home = () => {
       </section>
 
       <div className="lg:flex flex-col items-center justify-center hidden">
-        <div>
+        <div className="mb-[-60px]">
           <img 
           src={logo}
           width="300"
           alt="image preview"
           />
         </div>
-        <p className="text-2xl text-slate-500">Select user to send message</p>
+        <p className="text-3xl text-slate-500 mt-0 leading-none">Select user to send message</p>
       </div>
     </div>
 
