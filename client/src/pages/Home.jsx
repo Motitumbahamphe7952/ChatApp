@@ -52,15 +52,16 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className="lg:flex flex-col items-center justify-center hidden">
-        <div className="mb-[-60px]">
+      <div className="lg:flex flex-col items-center justify-center hidden pb-20">
+        <div className="mb-[-100px]">
           <img 
           src={logo}
-          width="300"
+          width="500"
           alt="image preview"
+          className="opacity-60"
           />
         </div>
-        <p className="text-3xl text-slate-500 mt-0 leading-none">Select user to send message</p>
+        <p className="text-3xl text-slate-500/40 mt-0 leading-none">Select user to send message</p>
       </div>
     </div>
 

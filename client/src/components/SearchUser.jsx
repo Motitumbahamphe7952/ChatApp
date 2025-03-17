@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import Loading from "./Loading";
+import UserSearchCards from "./UserSearchCards";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { backendURL } from "../constant";
 
 const SearchUser = () => {
-    const [searchUser, setSearchUser] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [searchUser,setSearchUser] = useState([]);
+    const [loading,setLoading] = useState(true);
+    const [search,setSearch] = useState("");
+
+    const handleSearchUser = async(e)=>{
+        const URL = `${backendURL}/api/searchuser`;
+        try {
+            const response = await axios.post(URL,{
+                search
+            })
+            setSearchUser(response.data.data);
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error);
+        }
+    }
+    useEffect(()=>{
+        handleSearchUser();
+    },[search])
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40">
       <div className="w-full max-w-2xl mx-auto mt-10">
@@ -16,7 +36,9 @@ const SearchUser = () => {
           <input
             type="text"
             placeholder="Search or start a new chat"
-            className="w-full py-1 h-full px-1 "
+            className="w-full py-1 h-full px-1"
+            onChange={(e)=>setSearch(e.target.value)}
+            value={search}
           />
         </div>
 
@@ -34,6 +56,15 @@ const SearchUser = () => {
                         <Loading />
                         <p className="pl-2">Loading...</p>
                     </div>
+                )
+            }
+            {
+                searchUser.length !== 0 && !loading && (
+                    searchUser.map((user,index)=>{
+                        return(
+                            <UserSearchCards key={user._id} user={user}/>
+                        )
+                    })
                 )
             }
 
