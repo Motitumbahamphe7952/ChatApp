@@ -5,15 +5,15 @@ import { LuLogOut } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useSelector } from "react-redux";
-import { GoArrowUpLeft } from "react-icons/go";
-import { RiArrowLeftUpFill } from "react-icons/ri";
 import { BsBoxArrowUpLeft } from "react-icons/bs";
 import EditUserDetails from "./EditUserDetails";
+import SearchUser from "./SearchUser";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
   const [allUser, setAllUser] = useState([]);
+  const [openSearchUser, setOpenSearchUser] = useState(false);
   return (
     <div className="w-full h-full grid grid-cols-[48px_auto]">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-l py-5 text-slate-600 flex flex-col justify-between">
@@ -32,11 +32,12 @@ const Sidebar = () => {
           <div
             className="w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded"
             title=" add friend"
+            onClick={()=>setOpenSearchUser(true)}
           >
             <LuUserRoundPlus size={20} />
           </div>
         </div>
-        <div className="">
+        <div>
           <div className="px-1">
             <button
               className="flex justify-center items-center text-lg font-semibold overflow-hidden bg-slate-200 rounded-full cursor-pointer"
@@ -67,7 +68,7 @@ const Sidebar = () => {
 
         <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
           {allUser.length === 0 && (
-            <div>
+            <div className="mt-10">
               <div className="flex justify-center items-center pt-10 pb-3">
                 <BsBoxArrowUpLeft size={30} 
                 className="text-slate-800"/>
@@ -85,9 +86,18 @@ const Sidebar = () => {
           onClose={() => {
             setEditUserOpen(false);
           }}
-          data={user}
+          user={user}
         />
       )}
+
+      {/* search user */} 
+      {
+        openSearchUser && (
+          <SearchUser onClose={()=>setOpenSearchUser(false)}/>
+        )
+      }
+
+
     </div>
   );
 };
