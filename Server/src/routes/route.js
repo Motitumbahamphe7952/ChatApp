@@ -23,8 +23,6 @@
 // //update user details
 // router.post("/updateuser", updateUserDetails);
 
-
-
 import express from "express";
 import { registerUser } from "../controller/register.js";
 import { checkEmail } from "../controller/checkEmail.js";
@@ -33,30 +31,26 @@ import { userDetails } from "../controller/userDetails.js";
 import { login } from "../controller/login.js";
 import { logout } from "../controller/logout.js";
 import { updateUserDetails } from "../controller/updateUserDetails.js";
+import { SearchUser } from "../controller/SearchUser.js";
 
 export const router = express.Router();
 
 // User registration and details
-router.route("/register")
-  .post(registerUser); // Create a new user
+router.route("/register").post(registerUser); // Create a new user
 
-router.route("/userdetails")
-  .get(userDetails); // Get user details
+router.route("/userdetails").get(userDetails); // Get user details
 
 // Email and password checks
-router.route("/email")
-  .post(checkEmail); // Check if email exists
+router.route("/email").post(checkEmail); // Check if email exists
 
-router.route("/password")
-  .post(checkPassword); // Check if password is valid
+router.route("/password").post(checkPassword); // Check if password is valid
 
 // Login and logout
-router.route("/login")
-  .post(login); // Login user
+router.route("/login").post(login); // Login user
 
-router.route("/logout")
-  .get(logout); // Logout user
+router.route("/logout").get(logout); // Logout user
 
 // Update user details
-router.route("/updateuser")
-  .post(updateUserDetails); // Update user details
+router.route("/updateuser").patch(updateUserDetails); // Update user details
+
+router.route("/searchuser").post(SearchUser); // Search for users

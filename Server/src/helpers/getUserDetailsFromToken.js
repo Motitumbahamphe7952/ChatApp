@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { secret_key } from "../constant.js";
 import { User } from "../Schema/model.js";
 
-export const getUserDetailsFromToken =async (token) => {
+export const getUserDetailsFromToken = async (token) => {
   if (!token) {
     return {
       message: "session out",
