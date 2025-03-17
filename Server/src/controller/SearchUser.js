@@ -1,32 +1,29 @@
 import { User } from "../Schema/model.js";
 
-export const SearchUser = async(req,res) => {
-    try{
-        const { search } = req.body;
-        const query = new RegExp(search,"ig");//The RegExp constructor only accepts two parameters:
+export const searchUser = async (req, res) => {
+  try {
+    const { search } = req.body;
+    const query = new RegExp(search, "ig"); //The RegExp constructor only accepts two parameters:
 
-        const user = await User.find({
-            "$or":[
-                {name:query},
-                {email:query}
-            ]
-        })
-        return res.status(200).json({
-            message: " All User",
-            success: true,
-            data: user,
-        });
-    }catch(error){
-        return res.status(500).json({
-            message: error.message || error,
-            error: true,
-        });
-    }
-}
+    const user = await User.find({
+      $or: [{ name: query }, { email: query }],
+    });
+    return res.status(200).json({
+      message: " All User",
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
 
 // import { User } from "../Schema/model";
 
-// export const SearchUser = async (req, res) => {
+// export const searchUser = async (req, res) => {
 //     try {
 //         const { search } = req.body;
 

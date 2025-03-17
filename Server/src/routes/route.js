@@ -31,7 +31,7 @@ import { userDetails } from "../controller/userDetails.js";
 import { login } from "../controller/login.js";
 import { logout } from "../controller/logout.js";
 import { updateUserDetails } from "../controller/updateUserDetails.js";
-import { SearchUser } from "../controller/SearchUser.js";
+import { searchUser } from "../controller/searchUser.js";
 
 export const router = express.Router();
 
@@ -53,4 +53,4 @@ router.route("/logout").get(logout); // Logout user
 // Update user details
 router.route("/updateuser").patch(updateUserDetails); // Update user details
 
-router.route("/searchuser").post(SearchUser); // Search for users
+router.route("/searchuser").post(searchUser); // Search for users
