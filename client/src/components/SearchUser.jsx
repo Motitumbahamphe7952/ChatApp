@@ -147,7 +147,7 @@ const SearchUser = () => {
   }, [debouncedSearch]);
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40">
+    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40 ">
       <div className="w-full max-w-2xl mx-auto mt-10">
         {/* Input field for searching users */}
         <div className="bg-white rounded h-10 overflow-hidden border-b-2 border-primary flex">
@@ -180,12 +180,12 @@ const SearchUser = () => {
           {/* Show Results */}
           {!loading &&
             searchUser.length > 0 &&
-            searchUser.map((user) => (
+            searchUser.map((user,index) => (
               <UserSearchCards key={user._id} user={user} />
             ))}
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 
