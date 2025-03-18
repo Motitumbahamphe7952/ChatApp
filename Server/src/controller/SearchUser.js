@@ -6,8 +6,8 @@ export const searchUser = async (req, res) => {
     const query = new RegExp(search, "ig"); //The RegExp constructor only accepts two parameters:
 
     const user = await User.find({
-      $or: [{ name: query }, { email: query }],
-    });
+      $or: [{ name: query }, { email: query }, { profilepic: query }],
+    }).select("-password");
     return res.status(200).json({
       message: " All User",
       success: true,

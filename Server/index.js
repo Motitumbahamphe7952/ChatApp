@@ -4,8 +4,9 @@ import { port, frontend_url } from "./src/constant.js";
 import connectToMongoDb from "./src/config/connectToMongoDb.js";
 import { router } from "./src/routes/route.js";
 import cookieParser from "cookie-parser";
+import { app, server } from "./src/socket/socket.js";
 
-const app = express();
+// const app = express();
 app.use(
   cors({
     origin: `${frontend_url}`,
@@ -20,7 +21,7 @@ const Port = port;
 app.use("/api", router)
 
 connectToMongoDb().then(() => {
-  app.listen(Port, () => {
+  server.listen(Port, () => {
     console.log(`Server is running on port ${Port}`);
   });
 });
