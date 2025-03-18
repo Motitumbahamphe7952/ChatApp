@@ -26,7 +26,7 @@
 //         handleSearchUser();
 //     },[search])
 
-//     console.log("searchUser",searchUser);	
+//     console.log("searchUser",searchUser);
 //   return (
 //     <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40">
 //       <div className="w-full max-w-2xl mx-auto mt-10">
@@ -78,7 +78,6 @@
 
 // export default SearchUser;
 
-
 import React, { useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import Loading from "./Loading";
@@ -86,6 +85,7 @@ import UserSearchCards from "./UserSearchCards";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { backendURL } from "../constant";
+import { VscClose } from "react-icons/vsc";
 
 /**
  * Custom hook to debounce a value using ES6+ arrow function syntax.
@@ -108,7 +108,7 @@ const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
-const SearchUser = () => {
+const SearchUser = ({ onClose }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -147,8 +147,8 @@ const SearchUser = () => {
   }, [debouncedSearch]);
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40 ">
-      <div className="w-full max-w-2xl mx-auto mt-10">
+    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40 p-2">
+      <div className="w-full max-w-lg lg:max-w-2xl mx-auto mt-10">
         {/* Input field for searching users */}
         <div className="bg-white rounded h-10 overflow-hidden border-b-2 border-primary flex">
           <div className="h-10 w-10 flex items-center justify-center text-slate-600">
@@ -180,12 +180,17 @@ const SearchUser = () => {
           {/* Show Results */}
           {!loading &&
             searchUser.length > 0 &&
-            searchUser.map((user,index) => (
-              <UserSearchCards key={user._id} user={user} />
+            searchUser.map((user, index) => (
+              <UserSearchCards key={user._id} user={user} onClose={onClose} />
             ))}
         </div>
       </div>
-    </div> 
+      <div className="absolute top-0 right-0 text-2xl p-4 lg:text-4xl hover:text-white" onClick={onClose}>
+        <button>
+          <VscClose size={25} />
+        </button>
+      </div>
+    </div>
   );
 };
 

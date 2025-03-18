@@ -2,10 +2,11 @@ import React from "react";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 
-const UserSearchCards = ({ user }) => {
+const UserSearchCards = ({ user, onClose }) => {
   return (
     <Link
       to={`/${user?._id}`}
+      onClick={onClose}
       className="flex items-center gap-3 p-3 pb-3 lg:p-4 border-2 border-transparent border-b-slate-100 hover:border-primary rounded-md cursor-pointer"
     >
       <div>

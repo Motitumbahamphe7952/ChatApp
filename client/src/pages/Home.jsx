@@ -52,7 +52,7 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className="lg:flex flex-col items-center justify-center hidden pb-20 z-[-1]">
+      <div className={`flex-col items-center justify-center hidden pb-20 ${!basePath ? "hidden":"lg-flex"}`}>
         <div className="mb-[-100px]">
           <img
             src={logo}
