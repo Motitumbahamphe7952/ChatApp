@@ -3,9 +3,10 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, setUser } from "../redux/userSlice.js";
+import { logout, setOnlineUser, setUser } from "../redux/userSlice.js";
 import Sidebar from "../components/Sidebar.jsx";
 import logo from "../assets/logo.png";
+import io from "socket.io-client";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -23,7 +24,7 @@ const Home = () => {
         withCredentials: true,
       });
 
-      console.log(response);
+      // console.log(response);
 
       dispatch(setUser(response?.data?.data));
 
@@ -40,7 +41,26 @@ const Home = () => {
     fetchUserDetails();
   }, []);
 
-  console.log("location:", location);
+  // socket connection
+  useEffect(()=>{
+    const socketConnection = io(backendURL, {
+      auth: {
+        token: localStorage.getItem("token")
+      }
+    })
+
+    socketConnection.on("onlineuser", (data) => {
+      console.log(data);
+      dispatch(setOnlineUser(data));
+    });
+
+    return ()=>{
+      socketConnection.disconnect()
+    }
+  },[])
+
+
+  // console.log("location:", location);
   const basePath = location.pathname === "/";
   return (
     <div className="grid lg:grid-cols-[320px_auto] h-screen max-h-screen">
