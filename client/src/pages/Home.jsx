@@ -44,7 +44,7 @@ const Home = () => {
   const basePath = location.pathname === "/";
   return (
     <div className="grid lg:grid-cols-[320px_auto] h-screen max-h-screen">
-      <section className={`bg-white ${!basePath && "hidden"} lg:block` }>
+      <section className={`bg-white ${!basePath && "hidden"} lg:block`}>
         <Sidebar />
       </section>
 
@@ -52,20 +52,20 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className="lg:flex flex-col items-center justify-center hidden pb-20">
+      <div className="lg:flex flex-col items-center justify-center hidden pb-20 z-[-1]">
         <div className="mb-[-100px]">
-          <img 
-          src={logo}
-          width="500"
-          alt="image preview"
-          className="opacity-60"
+          <img
+            src={logo}
+            width="500"
+            alt="image preview"
+            className="opacity-60"
           />
         </div>
-        <p className="text-3xl text-slate-500/40 mt-0 leading-none">Select user to send message</p>
+        <p className="text-3xl text-slate-500/40 mt-0 leading-none">
+          Select user to send message
+        </p>
       </div>
     </div>
-
-    
   );
 };
 
