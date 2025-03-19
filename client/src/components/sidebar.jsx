@@ -32,7 +32,7 @@ const Sidebar = () => {
           <div
             className="w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded"
             title=" add friend"
-            onClick={()=>setOpenSearchUser(true)}
+            onClick={() => setOpenSearchUser(true)}
           >
             <LuUserRoundPlus size={20} />
           </div>
@@ -40,7 +40,7 @@ const Sidebar = () => {
         <div>
           <div className="px-1">
             <button
-              className="flex justify-center items-center text-lg font-semibold overflow-hidden bg-slate-200 rounded-full cursor-pointer"
+              className="flex justify-center items-center text-lg font-semibold  bg-slate-200 rounded-full cursor-pointer"
               title={user?.name}
               onClick={() => {
                 setEditUserOpen(true);
@@ -51,6 +51,7 @@ const Sidebar = () => {
                 height={40}
                 name={user?.name}
                 profilepic={user?.profilepic}
+                userId={user?._id}
               />
             </button>
           </div>
@@ -70,8 +71,7 @@ const Sidebar = () => {
           {allUser.length === 0 && (
             <div className="mt-10">
               <div className="flex justify-center items-center pt-10 pb-3">
-                <BsBoxArrowUpLeft size={30} 
-                className="text-slate-800"/>
+                <BsBoxArrowUpLeft size={30} className="text-slate-800" />
               </div>
               <p className="text-lg text-center text-slate-600">
                 Explore users to start a conversations with
@@ -90,14 +90,10 @@ const Sidebar = () => {
         />
       )}
 
-      {/* search user */} 
-      {
-        openSearchUser && (
-          <SearchUser onClose={()=>setOpenSearchUser(false)}/>
-        )
-      }
-
-
+      {/* search user */}
+      {openSearchUser && (
+        <SearchUser onClose={() => setOpenSearchUser(false)} />
+      )}
     </div>
   );
 };

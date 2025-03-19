@@ -14,12 +14,12 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log("redux user", user);
+  // console.log("redux user", user);
   const fetchUserDetails = async () => {
     try {
       const URL = `${backendURL}/api/userdetails`;
       const response = await axios({
-        method: "get",
+        method: "GET",
         url: URL,
         withCredentials: true,
       });
@@ -32,7 +32,7 @@ const Home = () => {
         dispatch(logout());
         navigate("/login");
       }
-      console.log("current user details", response?.data?.data);
+      // console.log("current user details", response?.data?.data);
     } catch (error) {
       console.log("error:", error);
     }

@@ -3,7 +3,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { PiUserCircleThin } from "react-icons/pi";
 
-const Avatar = ({ width = 50, height = 50 ,textSize= "text-lg", name: propName, profilepic: propProfilePic}) => {
+const Avatar = ({userId, width = 50, height = 50 ,textSize= "text-lg", name: propName, profilepic: propProfilePic}) => {
+
+
 const user = useSelector((state) => state.user);
 const {name: reduxName , profilepic: reduxProfilePic} = user;
 
@@ -21,6 +23,8 @@ const imageUrl = propProfilePic || reduxProfilePic;
     }
   }
 
+  const onlineUser = useSelector((state) => state?.user?.onlineUser);
+
 
   const bgColors = [
     "bg-slate-100",
@@ -36,15 +40,17 @@ const imageUrl = propProfilePic || reduxProfilePic;
 
   const randomNumber = Math.floor(Math.random() * 9)
   const selectedBgColor = bgColors[randomNumber];
+
+  const isOnline = onlineUser?.includes(userId);
   return (
-    <div className="text-slate-800 overflow-hidden rounded-full">
+    <div className="text-slate-800  rounded-full font-bold relative">
       {imageUrl ? (
         <img
           src={imageUrl}
           alt={name}
           width={width}
           height={height}
-          className="overflow-hidden rounded-full aspect-square object-cover"
+          className="overflow-hidden rounded-full aspect-square"
         />
       ) : name ? (
         <div
@@ -56,6 +62,14 @@ const imageUrl = propProfilePic || reduxProfilePic;
       ) : (
         <PiUserCircleThin size={width} />
       )}
+
+
+      {
+        isOnline && (
+          <div className="bg-green-500 p-1 absolute bottom-1.5 right-0 z-[20] rounded-full" ></div>
+        )
+      }
+ 
     </div>
   );
 };
