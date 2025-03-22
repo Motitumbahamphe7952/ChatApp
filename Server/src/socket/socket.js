@@ -3,7 +3,6 @@ import { Server } from "socket.io";
 import http from "http";
 import { frontend_url } from "../constant.js";
 import { getUserDetailsFromToken } from "../helpers/getUserDetailsFromToken.js";
-import { set } from "mongoose";
 
 const app = express();
 
@@ -25,7 +24,7 @@ io.on("connection", async(socket) => {
 
     //current user details
     const user = await getUserDetailsFromToken(token);
-    console.log("user:",user);
+    // console.log("user:",user);
 
 
     //create a room
@@ -33,6 +32,10 @@ io.on("connection", async(socket) => {
     onlineUser.add(user?._id);
 
     io.emit("onlineuser",Array.from(onlineUser));
+
+    socket.on("message-page", (userId)=>{
+      console.log("userId",userId);
+    })
 
     //disconnect
     socket.on("disconnect", () => {
