@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { SocketProvider } from "./socketContext";
 const App = () => {
   return (
     <>
@@ -19,9 +19,11 @@ const App = () => {
         theme="light"
         transition={Bounce}
       />
-      <main>
-        <Outlet />
-      </main>
+      <SocketProvider>
+        <main>
+          <Outlet />
+        </main>
+      </SocketProvider>
     </>
   );
 };

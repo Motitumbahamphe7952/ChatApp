@@ -1,9 +1,44 @@
-import React from 'react'
+// import React, { useEffect } from "react";
+// import { useParams } from "react-router-dom";
+
+// const MessagePage = () => {
+//   const params = useParams();
+//   const socketConnection = useSelector((state) => state?.user?.socketConnection);
+//   console.log(params.userId);
+
+//   useEffect(() => {
+//     if(socketConnection){
+//       socketConnection.emit("message-page", params.userId);
+//     }
+//   }, [socketConnection]);
+
+//   return( 
+//     <div>
+//       MessagePage
+//     </div>
+//     );
+// };
+
+// export default MessagePage;
+
+
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSocket } from "../socketContext"; // ✅ Use context instead of Redux
 
 const MessagePage = () => {
-  return (
-    <div>MessagePage</div>
-  )
-}
+  const params = useParams();
+  const { socket } = useSocket(); // ✅ Get socket from context
 
-export default MessagePage
+  console.log(params.userId);
+
+  useEffect(() => {
+    if (socket) {
+      socket.emit("message-page", params.userId); // ✅ Send event to backend
+    }
+  }, [socket, params.userId]);
+
+  return <div>MessagePage</div>;
+};
+
+export default MessagePage;

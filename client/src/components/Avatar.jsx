@@ -66,7 +66,7 @@ const imageUrl = propProfilePic || reduxProfilePic;
 
       {
         isOnline && (
-          <div className="bg-green-500 p-1 absolute bottom-1.5 right-0 z-[20] rounded-full" ></div>
+          <div className="bg-green-500/90 p-1 absolute bottom-1.5 right-0 z-[20] rounded-full" ></div>
         )
       }
  

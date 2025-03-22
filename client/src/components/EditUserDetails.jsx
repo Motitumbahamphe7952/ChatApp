@@ -7,23 +7,25 @@ import { backendURL } from "../constant.js";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice.js";
-const EditUserDetails = ({ onClose, data }) => {
+const EditUserDetails = ({ onClose, user }) => {
   const [formData, setformData] = useState({
-    name: data?.name || "",
-    profilepic: data?.profilepic || "",
+    name: user?.name || "",
+    profilepic: user?.profilepic || "",
   });
+
+  console.log(formData);
 
   const uploadPhotoRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data) {
+    if (user) {
       setformData({
-        name: data.name || "",
-        profilepic: data.profilepic || "",
+        name: user?.name || "",
+        profilepic: user?.profilepic || "",
       });
     }
-  }, [data]);
+  }, [user]);
   // Logs formData when updated to track changes
   // useEffect(() => {
   //   console.log("Updated Data:", formData);
@@ -39,8 +41,8 @@ const EditUserDetails = ({ onClose, data }) => {
   // changes, formData is updated accordingly, keeping the UI in sync with
   // the latest user details.
 
-//   console.log("userdata:", data);
-//   console.log(" Data:", formData);
+  //   console.log("userdata:", data);
+  //   console.log(" Data:", formData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -58,20 +60,19 @@ const EditUserDetails = ({ onClose, data }) => {
     if (!file) return;
 
     try {
-        const uploadPhoto = await uploadFile(file);
-        console.log("Cloudinary Upload Response:", uploadPhoto); // Debugging Log
-        if (uploadPhoto && uploadPhoto.secure_url) {
-            setformData((preve) => ({
-                ...preve,
-                profilepic: uploadPhoto.secure_url,
-            }));
-        } else {
-            console.error("Upload failed: secure_url is missing");
-        }
+      const uploadPhoto = await uploadFile(file);
+      console.log("Cloudinary Upload Response:", uploadPhoto); // Debugging Log
+      if (uploadPhoto && uploadPhoto.secure_url) {
+        setformData((preve) => ({
+          ...preve,
+          profilepic: uploadPhoto.secure_url,
+        }));
+      } else {
+        console.error("Upload failed: secure_url is missing");
+      }
     } catch (error) {
-        console.error("Error uploading photo:", error);
+      console.error("Error uploading photo:", error);
     }
- 
   };
 
   const handleOpenUploadPhoto = (e) => {
@@ -82,11 +83,10 @@ const EditUserDetails = ({ onClose, data }) => {
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     e.stopPropagation();
     console.log("Submitting updated data:", formData);
-  
+
     try {
       const url = `${backendURL}/api/updateuser`;
       const response = await axios({
@@ -95,11 +95,13 @@ const EditUserDetails = ({ onClose, data }) => {
         url: url,
         withCredentials: true,
       });
-      
+
       console.log("API Response:", response); // Debugging
-  
+
       if (response.data.success) {
-        toast.success(response?.data?.message || "Profile updated successfully!");
+        toast.success(
+          response?.data?.message || "Profile updated successfully!"
+        );
         dispatch(setUser(response?.data?.data));
       } else {
         toast.warn("Update might not have been successful.");
@@ -109,7 +111,6 @@ const EditUserDetails = ({ onClose, data }) => {
       toast.error(error?.response?.data?.message || "Something went wrong!");
     }
     onClose();
-    
   };
 
   return (
@@ -181,4 +182,3 @@ const EditUserDetails = ({ onClose, data }) => {
 };
 
 export default EditUserDetails;
-
