@@ -3,6 +3,7 @@ import { Server } from "socket.io";
 import http from "http";
 import { frontend_url } from "../constant.js";
 import { getUserDetailsFromToken } from "../helpers/getUserDetailsFromToken.js";
+import { User } from "../Schema/model.js";
 
 const app = express();
 
@@ -26,15 +27,31 @@ io.on("connection", async(socket) => {
     const user = await getUserDetailsFromToken(token);
     // console.log("user:",user);
 
+    const user_Id = user?._id;
 
     //create a room
     socket.join(user?._id);
-    onlineUser.add(user?._id);
+    onlineUser.add(user_Id);
 
     io.emit("onlineuser",Array.from(onlineUser));
 
-    socket.on("message-page", (userId)=>{
+    socket.on("message-page", async(userId)=>{
       console.log("userId",userId);
+      const userDetails = await User.findById(userId).select("-password");
+
+      if (!userDetails) {
+        console.error("❌ User not found:", userId);
+        return;
+      }
+
+      const payload = {
+        _id : userDetails?._id,
+        name : userDetails?.name,
+        email : userDetails?.email,
+        online : onlineUser.has(userId)
+      }
+
+      socket.emit("message-user",payload);
     })
 
     //disconnect
