@@ -2,10 +2,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { PiUserCircleThin } from "react-icons/pi";
+import { useSocket } from "../socketContext";
 
 const Avatar = ({userId, width = 50, height = 50 ,textSize= "text-lg", name: propName, profilepic: propProfilePic}) => {
 
-
+const {socket,onlineUsers} = useSocket();
 const user = useSelector((state) => state.user);
 const {name: reduxName , profilepic: reduxProfilePic} = user;
 
@@ -23,7 +24,7 @@ const imageUrl = propProfilePic || reduxProfilePic;
     }
   }
 
-  const onlineUser = useSelector((state) => state?.user?.onlineUser);
+  // const onlineUser = useSelector((state) => state?.user?.onlineUser);
 
 
   const bgColors = [
@@ -41,7 +42,7 @@ const imageUrl = propProfilePic || reduxProfilePic;
   const randomNumber = Math.floor(Math.random() * 9)
   const selectedBgColor = bgColors[randomNumber];
 
-  const isOnline = onlineUser?.includes(userId);
+  const isOnline = onlineUsers?.includes(userId);
   return (
     <div className="text-slate-800  rounded-full font-bold relative">
       {imageUrl ? (

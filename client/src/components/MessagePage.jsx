@@ -35,8 +35,12 @@ const MessagePage = () => {
   useEffect(() => {
     if (socket) {
       socket.emit("message-page", params.userId); // ✅ Send event to backend
+
+      socket.on("message-user", (payload) => {
+        console.log("Received message-user event:", payload);
+      });
     }
-  }, [socket, params.userId]);
+  }, [socket]);
 
   return <div>MessagePage</div>;
 };
