@@ -30,8 +30,8 @@ io.on("connection", async(socket) => {
     const user_Id = user?._id;
 
     //create a room
-    socket.join(user?._id);
-    onlineUser.add(user_Id);
+    socket.join(user_Id);
+    onlineUser.add(user_Id?.toString());
 
     io.emit("onlineuser",Array.from(onlineUser));
 
@@ -48,6 +48,7 @@ io.on("connection", async(socket) => {
         _id : userDetails?._id,
         name : userDetails?.name,
         email : userDetails?.email,
+        profilepic : userDetails?.profilepic,  
         online : onlineUser.has(userId)
       }
 
