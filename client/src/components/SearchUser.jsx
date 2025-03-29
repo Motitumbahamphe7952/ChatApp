@@ -147,7 +147,7 @@ const SearchUser = ({ onClose }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40 p-2">
+    <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700/40 p-2 z-1">
       <div className="w-full max-w-lg lg:max-w-2xl mx-auto mt-10">
         {/* Input field for searching users */}
         <div className="bg-white rounded h-10 overflow-hidden border-b-2 border-primary flex">
